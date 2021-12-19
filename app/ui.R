@@ -4,9 +4,9 @@ library(shinycssloaders)
 library(plotly)
 
 shinyUI(fluidPage(theme = "wingspan_with_lauren.css",
-                  title="Wingspan with Lauren",
+                  title="Wingspan (by Lauren)",
     h1("Wingspan"),
-    h2("with Lauren"),
+    h2("(by Lauren)"),
 
     tabsetPanel(type="pills",
         tabPanel("Overall", 
@@ -24,7 +24,7 @@ shinyUI(fluidPage(theme = "wingspan_with_lauren.css",
         tabPanel("By Player", 
                  selectInput("player_comp_select",
                              "Choose a player:",
-                             c("Lauren", "Kira", "Julia")),
+                             c("Isaac", "Reyna")),
                  h3("Point Categories over Time"),
                  withSpinner(plotlyOutput("player_comp"), type=4, color="#b5b5b5", size=0.5))
     ),
@@ -38,8 +38,8 @@ shinyUI(fluidPage(theme = "wingspan_with_lauren.css",
       a("Paul Tol's Accessible Color Schemes", href="https://personal.sron.nl/~pault/")),
     p("Source:",
       a("Google Sheets", 
-        href="https://docs.google.com/spreadsheets/d/1Ryei71k-te0LNubhoaB_HcQ1mWMH86r-bEghjvOmoNk/edit?usp=sharing")),
-    p("Github:",
+        href="https://docs.google.com/spreadsheets/d/1-jrjGdTW_CoXiZ3QtcUCUdGj0ur-9lGbUpgIHg1zJwE/edit?usp=sharing")),
+    p("Forked from:",
       a("https://github.com/laurenmarietta/wingspan-with-lauren", 
         href="https://github.com/laurenmarietta/wingspan-with-lauren"))
 ))

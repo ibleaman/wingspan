@@ -37,14 +37,14 @@ modeBarButtonsToRemove <- c("zoomIn2d", "zoomOut2d", "zoom2d", "pan2d",
 shinyServer(function(input, output, session) {
     
     # Define file locations
-    googledrive_url <- "https://docs.google.com/spreadsheets/d/1Ryei71k-te0LNubhoaB_HcQ1mWMH86r-bEghjvOmoNk/export"
+    googledrive_url <- "https://docs.google.com/spreadsheets/d/1-jrjGdTW_CoXiZ3QtcUCUdGj0ur-9lGbUpgIHg1zJwE/export"
     
     # Download excel spreadsheet from URL and read as DF
     GET(googledrive_url, 
         write_disk(tf <- tempfile(fileext = ".xlsx")))
     
     data_df <- read_excel(tf) %>%
-        select(-`Date?`) %>%
+        select(-`Date`) %>%
         mutate(game_id = row_number()) %>%
         pivot_longer(-game_id, names_to="player", values_to="scores", values_drop_na=T) %>%
         extract(scores, into=c("Birds", "Bonus Cards", "End-of-Round Goals", "Eggs", "Food on Cards", "Tucked Cards"),

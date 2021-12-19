@@ -12,7 +12,8 @@ library(showtext)
 theme_set(theme_minimal())
 
 # Load ggplot-friendly font using show_text
-font_add("bebas", "app/www/BebasNeue-Regular.ttf")
+font_add("bebas", "app/www/fonts/BebasNeue-Regular.ttf")
+font_add("cardenio", "app/www/fonts/CardenioModern-Bold.otf")
 showtext_auto()
 ```
 
@@ -20,13 +21,14 @@ showtext_auto()
 # Authenticate Google Sheets
 gs4_deauth()
 
-gs_url <- "https:\\docs.google.com/spreadsheets/d/1Ryei71k-te0LNubhoaB_HcQ1mWMH86r-bEghjvOmoNk/edit?usp=sharing"
+gs_url <- "https://docs.google.com/spreadsheets/d/1-jrjGdTW_CoXiZ3QtcUCUdGj0ur-9lGbUpgIHg1zJwE/edit?usp=sharing"
+
 wingspan_df <- read_sheet(gs_url)
 ```
 
 ```{r}
 data_df <- wingspan_df %>%
-  select(-`Date?`) %>%
+  select(-`Date`) %>%
   mutate(game_id = row_number()) %>%
   pivot_longer(-game_id, names_to="player", values_to="scores", values_drop_na=T) %>%
   extract(scores, into=c("Birds", "Bonus Cards", "End-of-Round Goals", "Eggs", "Food on Cards", "Tucked Cards"),
@@ -45,11 +47,11 @@ ggplot(aes(x=score, y=type)) +
 
 ```{r}
 data_df %>%
-  filter(player == "Lauren") %>%
+  filter(player == "Isaac") %>%
 ggplot(aes(x=game_id, y=score, color=type)) +
   # geom_col() +
   geom_line() +
-  labs(title="Lauren's scores over time")
+  labs(title="Isaac's scores over time")
 ```
 ```{r}
 data_df %>%
@@ -98,7 +100,7 @@ ggplot(aes(x=players_num, y=rank, color=player)) +
 
 ```{r}
 data_df %>%
-  filter(player=="Lauren") %>%
+  filter(player=="Isaac") %>%
 ggplot(aes(x=game_id, y=score, fill=type)) +
   geom_col(position = position_dodge()) +
   scale_x_continuous(breaks=scales::pretty_breaks(n=15)) +
@@ -107,7 +109,7 @@ ggplot(aes(x=game_id, y=score, fill=type)) +
 
 ```{r}
 data_df %>%
-  filter(player=="Kira") %>%
+  filter(player=="Reyna") %>%
   group_by(type) %>%
   mutate(game_id = row_number()) %>%
 ggplot(aes(x=game_id, y=score, fill=type)) +
